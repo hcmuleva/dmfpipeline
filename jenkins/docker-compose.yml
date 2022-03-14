@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  jenkins:
+    image: bitnami/jenkins:latest
+    ports:
+      - '80:8080'
+      - '50000:50000'
+    environment:
+      - JENKINS_USERNAME=hcmuleva
+      - JENKINS_PASSWORD=hcmuleva
+      - JENKINS_JNLP_PORT_NUMBER=50000
+    volumes:
+      - ./jenkins_data:/bitnami/jenkins
