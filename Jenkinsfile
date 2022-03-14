@@ -18,12 +18,28 @@ pipeline {
         }
         stage('DockerImage') {
             steps {
-                echo 'DockerImage..'
+                echo 'DockerImage in progress..'
+                sh script:'''
+                #!/bin/bash
+                echo "This is start $(pwd)"
+                cd /bitnami/jenkins/home/jobs/DMFCI/branches/dev/workspace/source
+                ls -l
+                docker build -t hcmuleva/app . 
+                echo "image created"
+                '''
             }
         }
         stage('PushImage') {
             steps {
-                echo 'PushImage....'
+                echo 'Docker Push is in progress....'
+                 sh script:'''
+                #!/bin/bash
+                echo "This is start $(pwd)"
+                cd /bitnami/jenkins/home/jobs/DMFCI/branches/dev/workspace/source
+                ls -l
+                docker push hcmuleva/app 
+                echo "docker pushed to repo"
+                '''
             }
         }
     }
