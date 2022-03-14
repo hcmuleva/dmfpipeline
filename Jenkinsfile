@@ -4,42 +4,35 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh script:'''
-                #!/bin/bash
-                echo "This is start $(pwd)"
-                cd /bitnami/jenkins/home/jobs/DMFCI/branches/dev/workspace/source
-                ls -l
+                echo 'Build  started ....'
+                bat """
+                
+               
+                cd C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\CIDemo_dev\\source
                 mvn clean install 
-                echo "Maven build completed in dir $(pwd)"
-                '''
-
+                """
+                 echo 'Build  completed ....'
             }
             
         }
         stage('DockerImage') {
+
             steps {
                 echo 'DockerImage in progress..'
-                sh script:'''
-                #!/bin/bash
-                echo "This is start $(pwd)"
-                cd /bitnami/jenkins/home/jobs/DMFCI/branches/dev/workspace/source
-                ls -l
+                bat """
+                cd C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\CIDemo_dev\\source
                 docker build -t hcmuleva/app . 
-                echo "image created"
-                '''
+                """
+                echo 'Docker Image creation  completed ....'
             }
         }
         stage('PushImage') {
             steps {
                 echo 'Docker Push is in progress....'
-                 sh script:'''
-                #!/bin/bash
-                echo "This is start $(pwd)"
-                cd /bitnami/jenkins/home/jobs/DMFCI/branches/dev/workspace/source
-                ls -l
+                bat """
                 docker push hcmuleva/app 
-                echo "docker pushed to repo"
-                '''
+                """
+                echo "docker pushed to repo completed"
             }
         }
     }
